@@ -7,20 +7,56 @@
 	<link rel="icon" href="icons/favicon.ico">
 	<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 	<link href="https://fonts.googleapis.com/css?family=Oxygen:400,700" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 	<link rel="stylesheet" href="main.css">
 	<!-- <script src="main.js"></script> -->
 </head>
 <body>
-	<div class="score-container">
+	<div class="container">
+	<div class="score-container my-2">
 		<!-- <div class="score-title"> -->
 			<p>score</p>
 			<!-- <br> -->
 			<p id="score">0</p>
 		<!-- </div> -->
 	</div>
+	<div class="score-container">
+		<!-- <div class="score-title"> -->
+			<p>High score</p>
+			<!-- <br> -->
+			<p id="highScore">0</p>
+		<!-- </div> -->
+	</div>
+	<!-- <div class="new-game-container">
+		
+		<button id="freeGame">Free Game</button>
+	</div> -->
+
+	<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+	Free Game
+</button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h1 class="modal-title fs-5" id="staticBackdropLabel">Play free game</h1>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+		  Do you want to start your free game?
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-primary" id="freeGame" data-bs-dismiss="modal">Start</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+
 	<div class="new-game-container">
-	
 		<button id="restart" class="restart-button" role="button">New game</button>
 	</div>
 	<div id="game">
@@ -62,6 +98,7 @@
 			<i id="simulate" class="fa fa-laptop" aria-hidden="true"></i>
 		</div>
 	</div>
+</div>
     <script type="text/javascript" charset="utf-8">
         // Allowed keyboard keys
 var keyCodes = {
@@ -75,10 +112,20 @@ var keyCodes = {
 	76: "right",
 	74: "down"
 };
+var playFreeGame = document.getElementById('freeGame')
 const scoreDisplay = document.getElementById('score')
+const highScoreDisplay = document.getElementById('highScore')
+highScoreDisplay.innerHTML = localStorage.getItem('highScore')
+var gameStarted = false
 let score = 0
 // 2048 GAME CLASS //
 // // // // // // //
+
+	// gameStarted = true;
+	playFreeGame.addEventListener('click', startGame)
+
+
+
 function Game(display, rows, cols) {
 	this.rows = rows || 4;
 	this.cols = cols || 4;
@@ -102,6 +149,8 @@ Game.prototype.clear = function() {
 	this.paused = false;
 	this.display.clear();
 	scoreDisplay.innerHTML = 0;
+	// highScoreDisplay.innerHTML = localStorage.getItem('highScore')
+	// console.log(localStorage.getItem('highScore'));
 	for (var i = 0; i < this.rows; i++) {
 		for (var j = 0; j < this.cols; j++) {
 			this.plan[i][j] = 0;
@@ -461,6 +510,11 @@ DOMDisplay.prototype.result = function(state, score) {
 		document.querySelector("#result-message").textContent = resultMessage;
 		that.removeTile(resultTile);
 		that.addTile(resultTile, score);
+		const highestScore = localStorage.getItem('highScore')
+		if (score > highestScore) {
+			localStorage.setItem('highScore', score)
+		}
+		// console.log(score);
 		resultButton.style.display = "block";
 		
 		resultButton.addEventListener("click", function() {
@@ -476,7 +530,14 @@ DOMDisplay.prototype.result = function(state, score) {
 
 // DOCUMENT READY  //
 // // // // // // //
-window.onload = function() {
+
+// function startGame () {
+
+// }
+
+// window.onload = 
+function startGame() {
+	// console.log(e);
 
 	// Resize
 	var game = document.querySelector("#game");
@@ -486,6 +547,9 @@ window.onload = function() {
 			game.style.marginTop = marginTop + "px";
 		}
 	};
+
+	// High score
+	
 
 	resizeHandler();
 	window.onresize = resizeHandler;
@@ -602,6 +666,8 @@ window.onload = function() {
 		direction = null;
 	}, false);
 };
+
     </script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 </html>
