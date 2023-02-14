@@ -33,7 +33,7 @@
 	</div> -->
 
 	<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+<button type="button" class="btn btn-dark my-2" id="freeGame" onclick="myFunc()">
 	Free Game
 </button>
   
@@ -57,7 +57,7 @@
   </div>
 
 	<div class="new-game-container">
-		<button id="restart" class="restart-button" role="button">New game</button>
+		<button id="restart" class="btn btn-dark my-2" role="button">New game</button>
 	</div>
 	<div id="game">
 		<div id="board">
@@ -113,6 +113,7 @@ var keyCodes = {
 	74: "down"
 };
 var playFreeGame = document.getElementById('freeGame')
+var gameStarted = false
 const scoreDisplay = document.getElementById('score')
 const highScoreDisplay = document.getElementById('highScore')
 highScoreDisplay.innerHTML = localStorage.getItem('highScore')
@@ -124,7 +125,16 @@ let score = 0
 	// gameStarted = true;
 	playFreeGame.addEventListener('click', startGame)
 
-
+	function myFunc()
+{
+	gameStarted = true;
+    document.getElementById("freeGame").disabled = true;
+	if(gameStarted = false) {
+		document.getElementById("freeGame").disabled = false;
+	}
+    // \\do something for one minute
+    // document.getElementById("freeGame").disabled = false;
+}
 
 function Game(display, rows, cols) {
 	this.rows = rows || 4;
@@ -490,6 +500,8 @@ DOMDisplay.prototype.clear = function() {
 DOMDisplay.prototype.result = function(state, score) {
 	// State: 0 = lost, 1 = won
 	// console.log(state, score);
+	gameStarted = false;
+    document.getElementById("freeGame").disabled = false;
 	var lostMessage = "GAME OVER",
 		wonMessages = ["AWESOME", "WELL DONE", "NICE PLAY", "BRILLIANT", "GREAT", "NEAT", "RIGHT ON",
 					"FANTASTIC", "SUPERB", "EXCELLENT", "BRAVO", "CONGRATS", "WAY TO GO", "TERRIFIC"],
@@ -522,9 +534,9 @@ DOMDisplay.prototype.result = function(state, score) {
 		});
 		
 	}, 300);
-	setTimeout(() => {
-		alert("GAME OVER")
-	},400)
+	// setTimeout(() => {
+	// 	alert("GAME OVER")
+	// },400)
 
 };
 
@@ -579,6 +591,8 @@ function startGame() {
 		keepGoingButton.style.display = "";
 	});
 	tryAgainButton.addEventListener("click", function() {
+		gameStarted = true;
+		document.getElementById("freeGame").disabled = true;
 		myGame.start();
 		tryAgainButton.style.display = "";
 	});

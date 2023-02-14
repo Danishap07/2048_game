@@ -83,7 +83,7 @@ body {
 
 .result-button:active {
 	top: 72.2%;
-	background-color: black;
+	background-color: #1d1f1e;
 }
 
 #tiles {
@@ -138,18 +138,18 @@ body {
 	width: 100%;
 	font-size: 1em;
 	text-align: center;
-	color: #1E253D;
+	color: #1d1f1e;
 	margin-top: 0.2em;
 	overflow: auto;
 }
 
-#restart {
+/* #restart {
 	width: 30%;
 	font-size: 0.9em;
 	float: left;
 	position: relative;
 	top: 0.25em;
-}
+} */
 
 #simulate {
 	width: 30%;
@@ -177,7 +177,7 @@ body {
     height: 60px;
     border-radius: 3px;
     font-weight: bold;
-    background-color: #011411;
+    background-color: #1d1f1e;
     color: #f9f6f2;
   }
   #score {
@@ -188,9 +188,9 @@ body {
     font-size: 16px;
   }
 
-  #freeGame {
+  /* #freeGame {
     display: inline-block;
-    background: #011411;
+    background: #1d1f1e;
     border-radius: 7px;
     margin-left: 35%;
     padding: 0 20px;
@@ -203,11 +203,11 @@ body {
     cursor: pointer;
     text-align: center;
     flex-shrink: 0;
-  }
+  } */
 
   .restart-button {
     display: inline-block;
-    background: #011411;
+    background: #1d1f1e;
     border-radius: 7px;
     margin-left: 35%;
     padding: 0 20px;
